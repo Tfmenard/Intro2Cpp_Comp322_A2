@@ -20,5 +20,13 @@ public:
 
 	void InsertAfter(int value2InsertAfter, int value2BeInserted);
 	void InsertBefore(int value2InsertBefore, int value2BeInserted);
+
+	void Delete(int value);
+
+	bool isEmpty();
+	
+	int GetMax();
+	int GetMin();
+
 };
 

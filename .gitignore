@@ -30,3 +30,8 @@
 *.exe
 *.out
 *.app
+
+A2/.vs/*
+A2/Debug/*
+
+
