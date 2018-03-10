@@ -73,6 +73,7 @@ int main()
 
 
 	//#Question 12
+	//For the text answer, see the comments written above the implementation of the custom copy constructor in DLLStructure.cpp
 	DLLStructure dll_copied(*dll);
 	dll->printDLL();
 	dll_copied.printDLL();

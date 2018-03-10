@@ -40,11 +40,20 @@ DLLStructure::~DLLStructure()
 	}
 }
 
+/*
+We cannot rely on the copy constructor of DLLStructure provided by default by the compiler
+since only built-in types will be copied, not user defined types.
+Ergo, since a DLLStructure contains user defined type Node, we cannot rely on the default copy constructor
+The default copy constructor for Node does copy correctly all member variable even though it contains Node pointers as member variables.
+However, to be thorough, a custom copy constructor was also implemented in the Node class. See Node.cpp
+*/
  DLLStructure::DLLStructure(const DLLStructure &dll)
 {
 
 	 //Copy first Node
 	 Node *node_ptr = dll.first;
+	 
+	 //Create new Node on the heap
 	 Node *first_node = new Node(*node_ptr);
 	 this->first = first_node;
 
@@ -57,7 +66,9 @@ DLLStructure::~DLLStructure()
 	 //Iterate until you hit the last node that is already copied.
 	 while (node_ptr != dll.last)
 	 {
+		 //Create new Node on the heap
 		 Node *new_node = new Node(*node_ptr);
+		 //Wire new node
 		 new_node->previous = new_node_ptr;
 		 new_node_ptr->next = new_node;
 		 

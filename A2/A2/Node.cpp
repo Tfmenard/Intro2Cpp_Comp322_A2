@@ -17,6 +17,7 @@ Node::~Node()
 {
 }
 
+//Custom copy constrcutor
 Node::Node(const Node &node)
 {
 	this->data = node.data;
