@@ -10,5 +10,9 @@ public:
 	~Node();
 
 	Node(int _data, Node *_next, Node *_previous);
+
+	//Custom copy constructor
+	Node(const Node &node);
+
 };
 

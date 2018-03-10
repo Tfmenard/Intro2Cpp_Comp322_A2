@@ -16,3 +16,10 @@ Node::Node(int _data, Node *_next, Node *_previous)
 Node::~Node()
 {
 }
+
+Node::Node(const Node &node)
+{
+	this->data = node.data;
+	this->next = node.next;
+	this->previous = node.previous;
+}
