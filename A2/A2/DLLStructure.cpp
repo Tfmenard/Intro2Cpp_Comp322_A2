@@ -141,9 +141,10 @@ void DLLStructure::InsertAfter(int value2InsertAfter, int value2BeInserted)
 	}
 }
 
-//This method inserts a given value in a DLL before first occurence of Node containing a target value
+//This method inserts a given value in a DLL after first occurence of Node containing a target value
 void DLLStructure::InsertBefore(int value2InsertBefore, int value2BeInserted)
 {
+
 	bool valueFound = false;
 	Node *node_ptr = this->first;
 
@@ -152,31 +153,40 @@ void DLLStructure::InsertBefore(int value2InsertBefore, int value2BeInserted)
 	{
 		if (node_ptr->data == value2InsertBefore)
 		{
-			//Create new Node on the heap. Take note of the rewiring.
-			//The new node's next pointer points to the target node and its previous pointer points to the target node's previous pointer.
-			Node *new_node_ptr = new Node(value2BeInserted, node_ptr, node_ptr->previous);
 
 			//Check if current is the first Node of the DLL and if true the new Node inserted will become the first Node of the DLL
 			if (node_ptr == this->first)
 			{
+				//Create new Node on the heap. Take note of the rewiring.
+				//The new node's next pointer points to the target node and its previous pointer points to the target node's previous pointer.
+				Node *new_node_ptr = new Node(value2BeInserted, node_ptr, node_ptr->previous);
 				this->first->previous = new_node_ptr;
 				this->first = new_node_ptr;
 			}
 			//Insert node in DLL. Take note of the rewiring complementing the wiring of the new node.
 			else
 			{
-				node_ptr->previous->next = new_node_ptr;
-				node_ptr->previous = new_node_ptr;
+				//Store head
+				Node *head_node_ptr = this->first;
+
+				//Call InsertAfter with new head so we don't reiterate on the same nodes, and get the right target node.
+				this->first = node_ptr->previous;
+				this->InsertAfter(node_ptr->previous->data, value2BeInserted);
+
+				//Restore head
+				this->first = head_node_ptr;
 			}
 
-			//Set condition to true to brake from while loop
+			//Set condition to brake from while loop
 			valueFound = true;
 		}
 
 		//Go to next Node
 		node_ptr = node_ptr->next;
 	}
+	
 }
+
 
 //This method removes the first occurence of a Node in a DLL with data equal to a target value.
 //Then it deletes the floating Node from the heap to not have memory leak, since the DLL destructor would not delete be able to delete it.

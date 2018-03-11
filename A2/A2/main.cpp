@@ -32,6 +32,7 @@ int main()
 	dll->InsertBefore(value2InsertBefore, value2BeInserted);
 	cout << "New List is " << endl << endl;
 	dll->printDLL();
+
 	
 	//#Question 6
 	int value2BeDeleted = 7;
