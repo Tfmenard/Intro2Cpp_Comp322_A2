@@ -307,7 +307,7 @@ The best implementation for this function would be same best solution as for Get
 The function should be a simple getter function that returns a member variable "int max".
 One would have to update max every time a node is inserted or deleted.
 However, one must be careful when deleting the node contaning the max.
-If that would be the case, one could sort the list to find the new max after deleting the node.
+If that would be the case, one could iterate over the list to find the new max after deleting the node, as the function below does.
 */
 
 //This method iterates through the whole DLL to find the first occurence of the maximum value in it.
