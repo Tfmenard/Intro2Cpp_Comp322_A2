@@ -65,10 +65,12 @@ int main()
 	cout << "Value of Head = " << dll->GetHead() << endl << endl;
 	cout << "Value of Tail = " << dll->GetTail() << endl << endl;
 
-	//#Question 10
+	//#Question 10.
+	//For the text answer, see the comments written above the implementation of GetSize() in DLLStructure.cpp
 	cout << "Size of DLL is " << dll->GetSize() << endl << endl;
 
 	//#Question 11
+	//For the text answer, see the comments written above the implementation of GetMax() and GetMin() in DLLStructure.cpp
 	cout << "Max Value of DLL is " << dll->GetMax() << endl;
 	cout << "Min Value of DLL is " << dll->GetMin() << endl;
 

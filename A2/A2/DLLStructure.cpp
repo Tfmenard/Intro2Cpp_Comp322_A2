@@ -41,6 +41,7 @@ DLLStructure::~DLLStructure()
 }
 
 /*
+Question 12 Text Answer:
 We cannot rely on the copy constructor of DLLStructure provided by default by the compiler
 since only built-in types will be copied, not user defined types.
 Ergo, since a DLLStructure contains user defined type Node, we cannot rely on the default copy constructor
@@ -58,7 +59,7 @@ However, to be thorough, a custom copy constructor was also implemented in the N
 	 this->first = first_node;
 
 	 //Pointer to iterate over new DLL
-	 Node *new_node_ptr = this->first;
+	 Node *new_dll_tail_ptr = this->first;
 
 	 //Go to next Node. Should be first->next
 	 node_ptr = node_ptr->next;
@@ -68,12 +69,15 @@ However, to be thorough, a custom copy constructor was also implemented in the N
 	 {
 		 //Create new Node on the heap
 		 Node *new_node = new Node(*node_ptr);
-		 //Wire new node
-		 new_node->previous = new_node_ptr;
-		 new_node_ptr->next = new_node;
+
+		 //Wire new node to the tail of the new DLL
+		 new_node->previous = new_dll_tail_ptr;
+
+		 //Wire tail of new DLL to the newly created node. (Newly created node becomes the tail)
+		 new_dll_tail_ptr->next = new_node;
 		 
 		 //Point to newly created Node
-		 new_node_ptr = new_node;
+		 new_dll_tail_ptr = new_node;
 
 		 //Go to Next node in old DLL
 		 node_ptr = node_ptr->next;
@@ -81,8 +85,8 @@ However, to be thorough, a custom copy constructor was also implemented in the N
 
 	 //Create the last Node and wire it to new DLL
 	 Node *new_last_node = new Node(*node_ptr);
-	 new_last_node->previous = new_node_ptr;
-	 new_node_ptr->next = new_last_node;
+	 new_last_node->previous = new_dll_tail_ptr;
+	 new_dll_tail_ptr->next = new_last_node;
 	 this->last = new_last_node;
 }
 
@@ -274,6 +278,14 @@ int DLLStructure::GetTail()
 	return this->last->data;
 }
 
+
+/*
+Question 10 Text Answer:
+This implementation is inefficient since we have to iterate over the whole DLL every time.
+The best implementation for this function would be a simple Getter function which returns a member variable "int size"
+Though, to have such implementation, one would need to make sure that "size", is updated each time a node is inserted or deleted.
+*/
+//This method iterates over the whole DLL structure and returns its size
 int DLLStructure::GetSize()
 {
 	Node *node_ptr = this->first;
@@ -287,6 +299,16 @@ int DLLStructure::GetSize()
 
 	return size;
 }
+
+/*
+Question 11 Text Answer:
+This implementation is inefficient as it has to iterate over the whole structure each time.
+The best implementation for this function would be same best solution as for GetSize(). 
+The function should be a simple getter function that returns a member variable "int max".
+One would have to update max every time a node is inserted or deleted.
+However, one must be careful when deleting the node contaning the max.
+If that would be the case, one could sort the list to find the new max after deleting the node.
+*/
 
 //This method iterates through the whole DLL to find the first occurence of the maximum value in it.
 int DLLStructure::GetMax()
@@ -307,6 +329,9 @@ int DLLStructure::GetMax()
 	return maxValue;
 }
 
+/*
+The answer for GetMin() is the same as GetMax(), but the member variable would be "int min"
+*/
 //This method iterates through the whole DLL to find the first occurence of the minimum value in it.
 int DLLStructure::GetMin()
 {
